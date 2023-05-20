@@ -1,16 +1,17 @@
 import mongoose from "mongoose";
-import app from "./app.js";
+import { secrets } from "./src/config/secrets.js";
+import app from "./src/app.js";
 
 ( async () => {
     try {
-        await mongoose.connect("mongodb://localhost:27017/blogs");
+        await mongoose.connect(secrets.MONGO_URL);
         console.log("DB CONNECTED SUCCESSFULLY :)");
 
         const onListening = () => {
-            console.log("Listening on PORT :: 369");
+            console.log(`Listening on PORT :: ${secrets.PORT}`);
         }
 
-        app.listen(369, onListening);
+        app.listen(secrets.PORT, onListening);
 
     } catch (error) {
         console.error("DB Connection Error: ", error.message);
