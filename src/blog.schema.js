@@ -53,13 +53,13 @@ const blogSchema = new mongoose.Schema({
             likedBy:{
                 type: mongoose.Schema.Types.ObjectId,
                 ref: Authors,
-                required: true,
+                // required: true,
             },
             noOfLikes: [
                 {
                     likedCreatedAt: Date, // Liking
                     likedUpdatedAt: Date, // UnLiking
-                    required: true,
+                    // required: true,
                 }
             ], //An User (or) Author of this Blogging Website can like a single blog upto 10 times(like hashnode).
         }
@@ -70,7 +70,7 @@ const blogSchema = new mongoose.Schema({
             sharedBy:{
                 type: mongoose.Schema.Types.ObjectId,
                 ref: Authors,
-                required: true,
+                // required: true,
             }, 
         }
     ],
@@ -80,22 +80,22 @@ const blogSchema = new mongoose.Schema({
             commentedBy:{
                 type: mongoose.Schema.Types.ObjectId,
                 ref: Authors,
-                required: true
+                // required: true
             },
             commentCreatedAt:{
                 type: Date,
-                required: true
+                // required: true
             },
             commentUpdatedAt:{
                 type: Date,
-                required: true
+                // required: true
             },
             likes: [
                 {
                     commentLikedBy: {
                         type: mongoose.Schema.Types.ObjectId,
                         ref: Authors,
-                        required: true
+                        // required: true
                     },
                     likeCreatedAt: Date,
                     likedUpdatedAt: Date
@@ -106,7 +106,7 @@ const blogSchema = new mongoose.Schema({
                     repliedBy: {
                         type: mongoose.Schema.Types.ObjectId,
                         ref: Authors,
-                        required: true
+                        // required: true
                     },
                     replyCreatedAt: Date,
                     replyUpdatedAr: Date
@@ -120,7 +120,7 @@ const blogSchema = new mongoose.Schema({
             readBy: {
                 type: mongoose.Schema.Types.ObjectId,
                 ref: Authors,
-                required: true
+                // required: true
             },
             noOfTimesRead: Number,
         }
