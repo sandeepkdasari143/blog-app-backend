@@ -2,7 +2,7 @@ import Blog from "./blog.schema.js";
 import bigPromise from "./utils/bigPromise.js";
 import mongoose, { Mongoose } from "mongoose";
 
-export const addBlog = bigPromise(async (req, res) => {
+export const createBlog = bigPromise(async (req, res) => {
     const {blogTitle, blogSubTitle, authors, contentBody} = req.body;
     const blogID = new new Mongoose.Types.ObjectId().toHexString();
 
@@ -103,3 +103,4 @@ export const updateBlog = bigPromise( async (req, res) => {
     })
     
 })
+

@@ -1,5 +1,6 @@
 import express from 'express';
 import fileUpload from 'express-fileupload';
+import blogRouter from './blog.route';
 
 const app = express();
 
@@ -9,10 +10,6 @@ app.use(fileUpload({
     tempFileDir: "/tmp"
 }));
 
-app.get('/', (req,res)=>{
-    res.status(200).send({
-        success: TransformStreamDefaultController
-    })
-})
+app.use('/api/v1', blogRouter);
 
 export default app;
