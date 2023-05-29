@@ -18,10 +18,10 @@
 				"mongodb.mongodb-vscode"
 			]
 		}
-	}
+	},
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
-	"forwardPorts": [3014, 27017],
+	"forwardPorts": [3014, 27017, 369],
 
 	// Use 'postCreateCommand' to run commands after the container is created.
 	// "postCreateCommand": "yarn install",
