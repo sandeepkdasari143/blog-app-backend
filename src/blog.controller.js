@@ -1,50 +1,61 @@
 import Blog from "./blog.schema.js";
 import bigPromise from "./utils/bigPromise.js";
-import mongoose, { Mongoose } from "mongoose";
+import { Mongoose } from "mongoose";
 
 export const createBlog = bigPromise(async (req, res) => {
-    const {blogTitle, blogSubTitle, authors, contentBody} = req.body;
-    const blogID = new new Mongoose.Types.ObjectId().toHexString();
 
-    let cloudinaryResult;
-
-    if(req.files){
-        let bannerImage = req.files.photo;
-        console.log(bannerImage)
-        cloudinaryResult = await cloudinary.v2.uploader.upload(bannerImage, {
-            folder: `${authors[0].authorID}/${blogID}`
-        });
-        console.log(cloudinaryResult);
-    }
-
-    if (
-        !blogTitle ||
-        !blogSubTitle ||
-        !authors ||
-        !contentBody 
-    ) {
-        throw new Error("Please fill all the fields")   
-    }
-
-    const blog = await Blog.create({
-        _id: blogID,
-        blogTitle,
-        blogSubTitle,
-        authors,
-        contentBody,
-        bannerImage:{
-            id: cloudinaryResult?.public_id,
-            secure_url: cloudinaryResult?.secure_url
+    try {
+        
+        const {blogTitle, blogSubTitle, authors, contentBody} = req.body;
+        const blogID = new Mongoose.Types.ObjectId().toHexString();
+    
+        let cloudinaryResult;
+    
+        if(req.files){
+            let bannerImage = req.files.photo;
+            console.log(bannerImage)
+            cloudinaryResult = await cloudinary.v2.uploader.upload(bannerImage, {
+                folder: `${authors[0].authorID}/${blogID}`
+            });
+            console.log(cloudinaryResult);
         }
-    })
-
-    if (!blog) {
-        throw new Error("Blog is failed to be created at Database :(")
+    
+        if (
+            !blogTitle ||
+            !blogSubTitle ||
+            !authors ||
+            !contentBody 
+        ) {
+            throw new Error("Please fill all the fields")   
+        }
+    
+        const blog = await Blog.create({
+            _id: blogID,
+            blogTitle,
+            blogSubTitle,
+            authors,
+            contentBody,
+            bannerImage:{
+                id: cloudinaryResult?.public_id,
+                secure_url: cloudinaryResult?.secure_url
+            }
+        })
+    
+        if (!blog) {
+            throw new Error("Blog is failed to be created at Database :(")
+        }
+    
+        res.status(200).json({
+            success: true,
+            blog,
+        })
+    } catch (error) {
+        res.status(error.code).json({
+            success: false,
+            message: error.message
+        })
     }
-    res.status(200).json({
-        success: true,
-        blog,
-    })
+
 
 });
 

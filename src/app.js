@@ -11,6 +11,13 @@ app.use(fileUpload({
     tempFileDir: "/tmp"
 }));
 
-app.use('/api/v1', blogRouter);
+app.use('/api/v1/', blogRouter);
 
+app.get("/", (req,res) => {
+    res.send("Good Evening! Home")
+});
+
+app.get("/api/v1/", (req,res) => {
+    res.send("Good Evening! API")
+});
 export default app;
